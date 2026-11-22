@@ -224,6 +224,16 @@ section{padding-top:clamp(5.5rem,14vw,10rem);padding-bottom:clamp(5.5rem,14vw,10
   .about .text{grid-template-columns:300px minmax(0,1fr);gap:2.6rem;align-items:center;padding:1.6rem 2rem 1.6rem 1.6rem}
   .about-photo{width:100%;margin:0}
 }
+
+/* мобильные: навигация внизу экрана */
+@media(max-width:699px){
+  html{scroll-padding-top:0}
+  .nav{top:auto;bottom:0;justify-content:space-around;gap:.5rem;padding:.55rem .6rem calc(.55rem + env(safe-area-inset-bottom,0px));border-bottom:0;border-top:1px solid rgba(255,255,255,.07)}
+  .nav a.l{flex:1;min-width:0}
+  .nav a.l span{font-size:.68rem;text-align:center;line-height:1.2}
+  #afisha,#music{scroll-margin-top:calc(1.5rem - clamp(5.5rem,14vw,10rem))}
+  footer{padding-bottom:calc(6.5rem + env(safe-area-inset-bottom,0px))}
+}
 </style>
 </head>
 <body>
@@ -504,7 +514,7 @@ section{padding-top:clamp(5.5rem,14vw,10rem);padding-bottom:clamp(5.5rem,14vw,10
     h.setAttribute('aria-label', txt);
     for(var i=0;i<txt.length;i++){
       var c = txt[i];
-      if(c === ' '){ html += ' '; continue; }
+      if(c === ' '){ html += (txt.slice(i+1) === 'сны') ? '<br>' : ' '; continue; }   // «сны» — всегда на новой строке
       html += '<span class="ch'+(big.indexOf(k)>-1?' sp':'')+'" aria-hidden="true" style="--d:'+(4+Math.random()*3).toFixed(2)+'s;--l:-'+(Math.random()*6).toFixed(2)+'s">'+c+'</span>'; k++;
     }
     h.innerHTML = html;
