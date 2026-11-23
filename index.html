@@ -492,12 +492,14 @@ html{color-scheme:dark;scrollbar-width:thin;scrollbar-color:rgba(232,168,90,.55)
     var tt = rg2.getBoundingClientRect().top + scrollY;
     u.style.width = w+'px'; u.style.left = (innerWidth-w)/2+'px'; u.style.right = 'auto';
     u.style.top = Math.max(8, tt - h - 18)+'px';
-    /* W и H — по краям, наполовину за экраном, в свободной полосе между кнопками и рисунком */
-    var btn = document.querySelector('.hero .btns').getBoundingClientRect();
-    var lo = btn.bottom + scrollY + 8, hi = innerHeight - lastNav - artEl.offsetHeight - 8, band = Math.max(0, hi - lo);
-    var cw = innerWidth*.26, ch = cw*56/116, ow = innerWidth*.12, oh = ow*130/72;
-    cas.style.cssText = 'width:'+cw+'px;left:'+(-cw*.28)+'px;right:auto;top:'+Math.max(lo, lo + band*.30 - ch/2)+'px';
-    ori.style.cssText = 'width:'+ow+'px;right:'+(-ow*.30)+'px;left:auto;top:'+Math.max(lo, lo + band*.62 - oh/2)+'px';
+    /* W и H — у самых краёв экрана, наполовину за ним, на уровне текста: там по бокам от центрированных строк есть свободные поля.
+       Ниже кнопок места нет — там рисунок гитары/медведя, поэтому созвездия на него не заходят */
+    var subR = document.querySelector('.hero p.sub').getBoundingClientRect();
+    var tR = rg2.getBoundingClientRect();
+    var cw = innerWidth*.20, ch = cw*56/116, ow = innerWidth*.12, oh = ow*130/72;
+    var casY = tR.top + scrollY + tR.height*.55, oriY = subR.top + scrollY + subR.height*.5;
+    cas.style.cssText = 'width:'+cw+'px;left:'+(-cw*.5)+'px;right:auto;top:'+(casY - ch/2)+'px';
+    ori.style.cssText = 'width:'+ow+'px;right:'+(-ow*.3)+'px;left:auto;top:'+(oriY - oh/2)+'px';
   }
 
   function size(){
